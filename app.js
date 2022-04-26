@@ -2,8 +2,12 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const personRoutes = require('./api/routes/person.js');
+
+mongoose.connect(
+	"mongodb://" + process.env.DB_USER +":" +process.env.DB_PASS + "@" + process.env.DB_HOST + "/skoleDB?authSource=admin");
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));

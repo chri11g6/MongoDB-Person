@@ -5,8 +5,8 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 
-RUN npm install
+RUN npm install --production
 
 COPY . .
 
-ENTRYPOINT ["node", "src/index.js"]
+ENTRYPOINT ["node", "server.js"]

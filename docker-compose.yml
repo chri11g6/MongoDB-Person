@@ -3,5 +3,24 @@ services:
   nodejs:
     build: .
 
+    environment:
+      DB_HOST: mongodb
+      DB_USER: ${MONGO_ROOT_USERNAME}
+      DB_PASS: ${MONGO_ROOT_PASSWORD}
+
     ports:
       - '3000:3000'
+
+  mongodb:
+    image: mongo:5.0
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:

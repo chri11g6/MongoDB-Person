@@ -1,18 +1,18 @@
 version: '3'
 services:
-  # nodejs:
-  #   build: .
+  nodejs:
+    build: .
 
-  #   depends_on:
-  #     - mongodb
+    depends_on:
+      - mongodb
 
-  #   environment:
-  #     DB_HOST: mongodb
-  #     DB_USER: ${MONGO_ROOT_USERNAME}
-  #     DB_PASS: ${MONGO_ROOT_PASSWORD}
+    environment:
+      DB_HOST: mongodb
+      DB_USER: ${MONGO_ROOT_USERNAME}
+      DB_PASS: ${MONGO_ROOT_PASSWORD}
 
-  #   ports:
-  #     - '3000:3000'
+    ports:
+      - '3000:3000'
 
   mongodb:
     image: mongo:5.0

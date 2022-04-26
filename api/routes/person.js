@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
-const PersonSchema = require("../models/person");
+const Person = require("../models/person");
 
 router.get('/', (req, res, next) => {
-    PersonSchema.find()
+    Person.find()
         .exec()
         .then(docs => {
             res.status(200).json(docs);
@@ -15,12 +16,16 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    const Person = new Person({
+    console.log("POST Person 1");
+    console.log(req.body.name);
+    console.log(req.body.age);
+    const person = new Person({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         age: req.body.age
     });
-    Person
+    console.log("POST Person 2");
+    person
         .save()
         .then(result => {
             res.status(201).json({
@@ -37,7 +42,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/:personId', (req, res, next) => {
     const id = req.params.productId;
-    PersonSchema.findById(id)
+    Person.findById(id)
         .exec()
         .then(doc => {
             if (doc) {
@@ -59,7 +64,7 @@ router.patch('/:personId', (req, res, next) => {
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    PersonSchema.update({ _id: id }, { $set: updateOps })
+    Person.update({ _id: id }, { $set: updateOps })
         .exec()
         .then(result => {
             res.status(200).json(result);
@@ -73,7 +78,7 @@ router.patch('/:personId', (req, res, next) => {
 
 router.delete('/:personId', (req, res, next) => {
     const id = req.params.productId;
-    PersonSchema.remove({ _id: id })
+    Person.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(200).json(result);

@@ -1,0 +1,19 @@
+{
+  "name": "mongodb-person",
+  "version": "1.0.0",
+  "description": "Skole opgave",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chri11g6/MongoDB-Person.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chri11g6/MongoDB-Person/issues"
+  },
+  "homepage": "https://github.com/chri11g6/MongoDB-Person#readme"
+}

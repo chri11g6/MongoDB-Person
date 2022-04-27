@@ -10,6 +10,7 @@ services:
       DB_HOST: mongodb
       DB_USER: ${MONGO_ROOT_USERNAME}
       DB_PASS: ${MONGO_ROOT_PASSWORD}
+      DB_DATABASE: skoleDB
 
     ports:
       - '3000:3000'
@@ -20,7 +21,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: skoleDB
     ports:
       - 27017:27017
     volumes:

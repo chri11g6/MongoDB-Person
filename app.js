@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const personRoutes = require('./api/routes/person.js');
 
 mongoose.connect(
-	"mongodb://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_HOST + "/skoleDB?authSource=admin")
+	"mongodb://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_HOST + "/" + process.env.DB_DATABASE + "?authSource=admin")
 	.then(() => {
 		console.log("Connected to the database!");
 	})

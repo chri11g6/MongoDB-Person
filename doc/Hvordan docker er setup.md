@@ -96,6 +96,7 @@ I den her del compiler den typescript filerne. Den kopier `package.json` og `tsc
 >
 > Man kunne godt gør det, men docker cache system[^docker-cache] fungere sådan at den cacher være linje den udfør af proces, så den ikke skal lave den samme proces igen og igen når du skal bygge det her image. Hvis der er lavet ændringer en eller flere filer der bliver kopier ind, så vil den ikke bruge cachen fra den linje hvor der kopier filer ind og nedad.
 > Det vil sige at hvis jeg gjorde det med at kopier alt ind på en gang, så vil docker install packet igen og igen være gang man ændringer en eller flere filer der bliver kopier ind.
+> 
 > Så den måde jeg har sat det op på er at den ikke skal install packet igen og igen være gang der bliver ændringer filer. Men kun hvis `package.json` eller `tsconfig.json` bliver ændringer på fx at der bliver install en ny packet.
 
 [^docker-cache]: [https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache)

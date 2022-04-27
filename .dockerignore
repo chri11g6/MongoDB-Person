@@ -2,6 +2,8 @@
 dockerfile
 .dockerignore
 
+*.js
+
 # folder
 node_modules/
 .git

@@ -1,12 +1,16 @@
-const express = require('express');
-const app = express();
-const morgan = require('morgan');
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+import express, { Application, NextFunction, Request, Response } from "express";
+import { connect } from 'mongoose';
+import morgan from "morgan";
+import bodyParser from "body-parser";
+import personRoutes from "./api/routes/person";
 
-const personRoutes = require('./api/routes/person.js');
+const app: Application = express();
 
-mongoose.connect(
+interface httpError extends Error {
+	status: number;
+}
+
+connect(
 	"mongodb://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_HOST + "/" + process.env.DB_DATABASE + "?authSource=admin")
 	.then(() => {
 		console.log("Connected to the database!");
@@ -36,13 +40,13 @@ app.use((req, res, next) => {
 
 app.use('/person', personRoutes);
 
-app.use((req, res, next) => {
-	const error = new Error('Not found');
+app.use((req: Request, res: Response, next: NextFunction) => {
+	const error: httpError = new Error('Not found') as httpError;
 	error.status = 404;
 	next(error);
 })
 
-app.use((error, req, res, next) => {
+app.use((error: httpError, req: Request, res: Response, next: NextFunction) => {
 	res.status(error.status || 500);
 	res.json({
 		error: {

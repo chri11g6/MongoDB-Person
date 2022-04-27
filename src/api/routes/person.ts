@@ -36,7 +36,7 @@ router.post('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.get('/:personId', (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.productId;
+    const id = req.params.personId;
     person.findById(id)
         .exec()
         .then(doc => {
@@ -53,26 +53,22 @@ router.get('/:personId', (req: Request, res: Response, next: NextFunction) => {
         });
 });
 
-// router.patch('/:personId', (req: Request, res: Response, next: NextFunction) => {
-//     const id = req.params.personId;
-//     const updateOps = {};
-//     for (const ops of req.body) {
-//         updateOps[ops.propName] = ops.value;
-//     }
-//     person.update({ _id: id }, { $set: updateOps })
-//         .exec()
-//         .then(result => {
-//             res.status(200).json(result);
-//         })
-//         .catch(err => {
-//             res.status(500).json({
-//                 error: err
-//             });
-//         });
-// });
+router.patch('/:personId', (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.personId;
+    person.updateOne({ _id: id }, { $set: req.body })
+        .exec()
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+});
 
 router.delete('/:personId', (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.productId;
+    const id = req.params.personId;
     person.remove({ _id: id })
         .exec()
         .then(result => {

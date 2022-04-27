@@ -16,15 +16,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    console.log("POST Person 1");
-    console.log(req.body.name);
-    console.log(req.body.age);
     const person = new Person({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         age: req.body.age
     });
-    console.log("POST Person 2");
     person
         .save()
         .then(result => {

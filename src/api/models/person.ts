@@ -12,6 +12,6 @@ const personSchema = new Schema<IPerson>({
     age: { type: Number }
 });
 
-const person = model<IPerson>('Person', personSchema);
+const Person = model<IPerson>('Person', personSchema);
 
-export {person};
+export {Person};

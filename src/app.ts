@@ -3,6 +3,7 @@ import { connect } from 'mongoose';
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import personRoutes from "./api/routes/person";
+import userRoutes from "./api/routes/user";
 
 const app: Application = express();
 
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/person', personRoutes);
+app.use('/user', userRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
 	const error: httpError = new Error('Not found') as httpError;

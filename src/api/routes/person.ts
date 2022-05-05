@@ -1,10 +1,10 @@
 import express, { NextFunction, Request, Response, Router } from "express";
 import { Types } from 'mongoose';
-import { person } from '../models/person';
+import { Person } from '../models/person';
 const router: Router = express.Router();
 
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
-    person.find()
+    Person.find()
         .exec()
         .then(docs => {
             res.status(200).json(docs);
@@ -15,7 +15,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.post('/', (req: Request, res: Response, next: NextFunction) => {
-    const personData = new person({
+    const personData = new Person({
         _id: new Types.ObjectId(),
         name: req.body.name,
         age: req.body.age
@@ -37,7 +37,7 @@ router.post('/', (req: Request, res: Response, next: NextFunction) => {
 
 router.get('/:personId', (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.personId;
-    person.findById(id)
+    Person.findById(id)
         .exec()
         .then(doc => {
             if (doc) {
@@ -55,7 +55,7 @@ router.get('/:personId', (req: Request, res: Response, next: NextFunction) => {
 
 router.patch('/:personId', (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.personId;
-    person.updateOne({ _id: id }, { $set: req.body })
+    Person.updateOne({ _id: id }, { $set: req.body })
         .exec()
         .then(result => {
             res.status(200).json(result);
@@ -69,7 +69,7 @@ router.patch('/:personId', (req: Request, res: Response, next: NextFunction) => 
 
 router.delete('/:personId', (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.personId;
-    person.remove({ _id: id })
+    Person.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(200).json(result);

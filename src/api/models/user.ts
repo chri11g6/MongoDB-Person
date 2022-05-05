@@ -1,12 +1,12 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-export interface IUser {
+export interface UserDocument extends Document {
     _id: number;
     email: string;
     password: string;
 }
 
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema<UserDocument>({
     _id: { type: Schema.Types.ObjectId },
     email: {
 		type: String,
@@ -17,6 +17,6 @@ const userSchema = new Schema<IUser>({
     password: { type: String, required: true }
 });
 
-const User = model<IUser>('User', userSchema);
+const User = model<UserDocument>('User', userSchema);
 
 export {User};

@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response, Router } from "express";
 import { Types } from 'mongoose';
 import { Person } from '../models/person';
+import checkAuth, { IGetUserAuthInfoRequest } from '../middleware/check-auth';
 const router: Router = express.Router();
 
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
@@ -14,7 +15,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
         });
 });
 
-router.post('/', (req: Request, res: Response, next: NextFunction) => {
+router.post('/', checkAuth, (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
     const personData = new Person({
         _id: new Types.ObjectId(),
         name: req.body.name,
@@ -67,7 +68,7 @@ router.patch('/:personId', (req: Request, res: Response, next: NextFunction) => 
         });
 });
 
-router.delete('/:personId', (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:personId', checkAuth, (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
     const id = req.params.personId;
     Person.remove({ _id: id })
         .exec()

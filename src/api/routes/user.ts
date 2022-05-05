@@ -1,8 +1,9 @@
 import express, { NextFunction, Request, Response, Router } from "express";
 import { Types } from 'mongoose';
 import bcrypt from 'bcrypt';
-import jwt, { Jwt } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { User } from '../models/user';
+import { IJwt } from "../models/ijwt";
 const router: Router = express.Router();
 
 router.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
@@ -53,11 +54,13 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
 			});
 		}
 
+		const tokenData: IJwt = {
+			email: userData[0].email,
+			userId: userData[0]._id
+		}
+
 		const token = jwt.sign(
-			{
-				email: userData[0].email,
-				userId: userData[0]._id
-			},
+			tokenData,
 			process.env.JWT_KEY as jwt.Secret,
 			{
 				expiresIn: "1h"

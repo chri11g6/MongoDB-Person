@@ -1,6 +1,7 @@
 # file
 dockerfile
 .dockerignore
+nodemon.json
 
 *.js
 

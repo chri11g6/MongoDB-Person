@@ -10,6 +10,7 @@ services:
       DB_HOST: mongodb
       DB_USER: ${MONGO_ROOT_USERNAME}
       DB_PASS: ${MONGO_ROOT_PASSWORD}
+      JWT_KEY: ${JWT_KEY}
       DB_DATABASE: skoleDB
 
     ports:

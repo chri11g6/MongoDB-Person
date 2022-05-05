@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response, Router } from "express";
 import { Types } from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt, { Jwt } from 'jsonwebtoken';
 import { User } from '../models/user';
 const router: Router = express.Router();
 
@@ -29,29 +30,65 @@ router.post('/signup', async (req: Request, res: Response, next: NextFunction) =
 				message: "User created"
 			});
 		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({
-				error: err
+			.catch(err => {
+				console.log(err);
+				res.status(500).json({
+					error: err
+				});
 			});
-		});;
 
 	});
+});
+
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+	let userData = await User.find({ email: req.body.email }).exec();
+
+	if (userData.length < 1)
+		return res.status(401).json({ message: "Auth failed" });
+
+	bcrypt.compare(req.body.password, userData[0].password, (err, result) => {
+		if (err || !result) {
+			return res.status(401).json({
+				message: "Auth failed"
+			});
+		}
+
+		const token = jwt.sign(
+			{
+				email: userData[0].email,
+				userId: userData[0]._id
+			},
+			process.env.JWT_KEY as jwt.Secret,
+			{
+				expiresIn: "1h"
+			}
+		);
+
+		return res.status(200).json({
+			message: "Auth successful",
+			token: token
+		});
+
+	});
+
+	// return res.status(401).json({
+	// 	message: "Auth failed"
+	// });
 });
 
 router.delete('/:userId', (req: Request, res: Response, next: NextFunction) => {
 	const id = req.params.userId;
 	console.log(id);
-    User.remove({ _id: id })
-        .exec()
-        .then(result => {
-            res.status(200).json({message: "User deleted"});
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
-        });
+	User.remove({ _id: id })
+		.exec()
+		.then(result => {
+			res.status(200).json({ message: "User deleted" });
+		})
+		.catch(err => {
+			res.status(500).json({
+				error: err
+			});
+		});
 });
 
 export default router;

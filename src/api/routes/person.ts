@@ -54,7 +54,7 @@ router.get('/:personId', (req: Request, res: Response, next: NextFunction) => {
         });
 });
 
-router.patch('/:personId', (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:personId', checkAuth, (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
     const id = req.params.personId;
     Person.updateOne({ _id: id }, { $set: req.body })
         .exec()

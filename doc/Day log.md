@@ -47,3 +47,18 @@ Så jeg valget at debug i funktion. Men jeg viste ikke hvordan man indsætter br
 ## Day 3 (28-04-22)
 
 Jeg valget at lave dokumentation på mit projekt eller opgave så hvis andre vil vide hvordan mit docker setup virker eller andet så kunne de det. Jeg har valget at jeg ikke vil dokumenter min kode lige nu.
+
+## Day 4 (09-08-22)
+
+Efter en lang tid siden sidst jeg fik kikke på projekt. Fik jeg kun fix sikkerhed huller i projekt efter GitHub spame mig med email være måned. Fordi den kan se at jeg bruge en til to package hvor der er huller i. Som er:
+- mongoose
+- nodemon
+
+Men nu er version ændre til et højer version, og så håder jeg kan få fred for GitHub i et styke tid.
+Jeg vil nok tag at sige at jeg var ved at overvej at slette projekt da det var et skole projekt, men jeg to sammen til at update den.
+
+> Det er dejlig at se at GitHub kan se om man bruger packaget som indeholder sikkerheds huller i dem ud fra fx **CVE ID**, og fra andre kilder.
+>
+> Det er først gang jeg prøver at for besked fra GitHub om at der sikkerhed huller i mit projekt.
+
+Jeg har ikke teste om projekt kan kører forbi mit fokus var på at for GitHub til at holde mund.

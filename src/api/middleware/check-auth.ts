@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import jwt from 'jsonwebtoken';
-import { IJwt } from "../models/ijwt";
+import { IJwt } from "../models/IJwt";
 
 export interface IGetUserAuthInfoRequest extends Request {
 	userData?: IJwt;

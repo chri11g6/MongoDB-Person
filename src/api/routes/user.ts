@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/user';
-import { IJwt } from "../models/ijwt";
+import { IJwt } from "../models/IJwt";
 const router: Router = express.Router();
 
 router.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
@@ -56,7 +56,7 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
 
 		const tokenData: IJwt = {
 			email: userData[0].email,
-			userId: userData[0]._id
+			userId: userData[0]._id as unknown as number
 		}
 
 		const token = jwt.sign(

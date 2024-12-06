@@ -26,13 +26,12 @@ router.post('/signup', async (req: Request, res: Response, next: NextFunction) =
 		});
 
 		user.save().then(result => {
-			console.log(result);
 			res.status(201).json({
-				message: "User created"
+				message: "User created",
+				id: result._id
 			});
 		})
 			.catch(err => {
-				console.log(err);
 				res.status(500).json({
 					error: err
 				});
@@ -73,15 +72,10 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
 		});
 
 	});
-
-	// return res.status(401).json({
-	// 	message: "Auth failed"
-	// });
 });
 
 router.delete('/:userId', (req: Request, res: Response, next: NextFunction) => {
 	const id = req.params.userId;
-	console.log(id);
 	User.remove({ _id: id })
 		.exec()
 		.then(result => {

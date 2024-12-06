@@ -26,7 +26,7 @@ router.post('/', checkAuth, (req: IGetUserAuthInfoRequest, res: Response, next: 
         .then(result => {
             res.status(201).json({
                 message: "Handling POST requests to /Person",
-                createdProduct: result
+                createdPerson: result
             });
         })
         .catch(err => {

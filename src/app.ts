@@ -1,5 +1,4 @@
 import express, { Application, NextFunction, Request, Response } from "express";
-import { connect } from 'mongoose';
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import personRoutes from "./api/routes/person";
@@ -10,17 +9,6 @@ const app: Application = express();
 interface httpError extends Error {
 	status: number;
 }
-
-connect(
-	"mongodb://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_HOST + "/" + process.env.DB_DATABASE + "?authSource=admin")
-	.then(() => {
-		console.log("✔ Connected to the database!");
-	})
-	.catch(err => {
-		console.log("❌ Cannot connect to the database!", err);
-		process.exit();
-	});
-
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,5 +45,6 @@ app.use((error: httpError, req: Request, res: Response, next: NextFunction) => {
 	});
 });
 
+// module.exports = app;
 
-module.exports = app;
+export default app;

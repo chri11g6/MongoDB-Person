@@ -3,8 +3,7 @@ dockerfile
 .dockerignore
 nodemon.json
 
-*.js
-
 # folder
 node_modules/
 .git
+build/

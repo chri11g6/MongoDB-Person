@@ -1,4 +1,4 @@
-FROM node:14-alpine3.10 as ts-compiler
+FROM node:20-alpine3.20 as ts-compiler
 WORKDIR /usr/app
 COPY package*.json ./
 COPY tsconfig*.json ./
@@ -6,14 +6,10 @@ RUN npm install
 COPY . ./
 RUN npm run build
 
-FROM node:14-alpine3.10 as ts-remover
+FROM node:20-alpine3.20 as ts-remover
 WORKDIR /usr/app
 COPY --from=ts-compiler /usr/app/package*.json ./
 RUN npm install --only=production
 COPY --from=ts-compiler /usr/app/build ./
-
-FROM gcr.io/distroless/nodejs:14
-WORKDIR /usr/app
-COPY --from=ts-remover /usr/app ./
 USER 1000
 CMD ["server.js"]
